@@ -1,0 +1,63 @@
+<!-- lyaka_platform/templates/index.html -->
+{% extends "base.html" %}
+
+{% block title %}الصفحة الرئيسية - لياقة{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-content">
+        <h1>مرحباً بك في لياقة</h1>
+        <p>منصتك الشاملة للياقة البدنية والصحة.</p>
+        {% if not current_user.is_authenticated %}
+        <a href="{{ url_for("auth.register") }}" class="btn btn-primary">ابدأ رحلتك الآن</a>
+        {% else %}
+        <p>مرحباً بك، {{ current_user.username }}!</p>
+        <a href="{{ url_for("main.profile") }}" class="btn btn-primary">اذهب إلى ملفي الشخصي</a>
+        {% endif %}
+    </div>
+</section>
+
+<section class="features">
+    <h2>ميزاتنا</h2>
+    <div class="feature-grid">
+        <div class="feature-item">
+            <i class="fas fa-dumbbell"></i>
+            <h3>تمارين متنوعة</h3>
+            <p>مكتبة ضخمة من التمارين لكل المستويات والأهداف.</p>
+        </div>
+        <div class="feature-item">
+            <i class="fas fa-clipboard-list"></i>
+            <h3>خطط تدريب مخصصة</h3>
+            <p>أنشئ خطط تدريب تناسب احتياجاتك أو اختر من الخطط الجاهزة.</p>
+        </div>
+        <div class="feature-item">
+            <i class="fas fa-video"></i>
+            <h3>فيديوهات حصرية</h3>
+            <p>شاهد فيديوهات تدريبية وتعليمية من مدربين محترفين.</p>
+        </div>
+        <div class="feature-item">
+            <i class="fas fa-trophy"></i>
+            <h3>تتبع الإنجازات</h3>
+            <p>سجل تقدمك واحصل على نقاط وإنجازات لتحفيزك.</p>
+        </div>
+        <div class="feature-item">
+            <i class="fas fa-tv"></i>
+            <h3>قنوات بث مباشر</h3>
+            <p>تابع بثوث مباشرة لتمارين ويوجا وصحة من مدربين.</p>
+        </div>
+        <div class="feature-item">
+            <i class="fas fa-users"></i>
+            <h3>مجتمع داعم</h3>
+            <p>تواصل مع رياضيين آخرين وشارك تجاربك.</p>
+        </div>
+    </div>
+</section>
+
+<section class="cta">
+    <h2>جاهز لتبدأ؟</h2>
+    <p>انضم إلى مجتمع لياقة اليوم وحقق أهدافك الصحية.</p>
+    {% if not current_user.is_authenticated %}
+    <a href="{{ url_for("auth.register") }}" class="btn btn-secondary">سجل الآن مجاناً</a>
+    {% endif %}
+</section>
+{% endblock %}

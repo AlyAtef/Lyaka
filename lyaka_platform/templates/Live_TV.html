@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container-fluid">
+    <h1 class="mt-4 mb-4">البث المباشر (TV)</h1>
+    <div class="row">
+        <!-- قناة وهمية 1 -->
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-header bg-danger text-white">
+                    <i class="fas fa-broadcast-tower"></i> مباشر الآن
+                </div>
+                <img src="https://via.placeholder.com/300x200.png?text=Big+Ramy" class="card-img-top" alt="Big Ramy">
+                <div class="card-body">
+                    <h5 class="card-title">تدريب أرجل مع بيج رامي</h5>
+                    <p class="card-text text-muted">بواسطة: GOLDS GYM</p>
+                    <a href="#" class="btn btn-danger">شاهد الآن</a>
+                </div>
+            </div>
+        </div>
+        <!-- قناة وهمية 2 -->
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                 <div class="card-header">
+                    آخر بث: منذ 3 ساعات
+                </div>
+                <img src="https://via.placeholder.com/300x200.png?text=Fitness+Coach" class="card-img-top" alt="Fitness Coach">
+                <div class="card-body">
+                    <h5 class="card-title">حصصة يوجا صباحية</h5>
+                    <p class="card-text text-muted">بواسطة: Yoga Studio</p>
+                    <a href="#" class="btn btn-secondary">مشاهدة الإعادة</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

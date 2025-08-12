@@ -1,0 +1,51 @@
+<!-- lyaka_platform/templates/view_channel.html -->
+{% extends "base.html" %}
+
+{% block title %}قناة {{ channel.name }} - لياقة{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>قناة: {{ channel.name }}</h2>
+    <p>{{ channel.description }}</p>
+    <p>المدرب: {{ channel.trainer.username }}</p>
+    {% if channel.is_live %}
+    <span class="live-indicator"><i class="fas fa-circle"></i> بث مباشر الآن!</span>
+    {% endif %}
+
+    {% if current_user.is_authenticated and current_user.id == channel.trainer_id %}
+    <div class="channel-actions">
+        <a href="{{ url_for("main.edit_channel", channel_id=channel.id) }}" class="btn btn-secondary">تعديل القناة</a>
+        <a href="{{ url_for("main.add_channel_video", channel_id=channel.id) }}" class="btn btn-primary">إضافة فيديو للقناة</a>
+    </div>
+    {% endif %}
+</div>
+
+<h3>فيديوهات القناة:</h3>
+{% if channel_videos %}
+<div class="video-grid">
+    {% for video in channel_videos %}
+    <div class="video-card">
+        <h3><a href="{{ url_for("main.view_channel_video", video_id=video.id) }}">{{ video.title }}</a></h3>
+        <p>{{ video.description }}</p>
+        <div class="video-thumbnail">
+            <video controls preload="metadata">
+                <source src="{{ url_for("static", filename=video.video_path.split("static/")[1]) }}" type="video/mp4">
+                متصفحك لا يدعم تشغيل الفيديو.
+            </video>
+        </div>
+        <p>تم الرفع في: {{ video.uploaded_at.strftime("%Y-%m-%d %H:%M") }}</p>
+        <div class="card-actions">
+            <a href="{{ url_for("main.view_channel_video", video_id=video.id) }}" class="btn btn-secondary">عرض</a>
+            {% if current_user.is_authenticated and current_user.id == channel.trainer_id %}
+            <form action="{{ url_for("main.delete_channel_video", video_id=video.id) }}" method="POST" style="display:inline;">
+                <button type="submit" class="btn btn-danger" onclick="return confirm("هل أنت متأكد من حذف هذا الفيديو من القناة؟");">حذف</button>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<p>لا توجد فيديوهات في هذه القناة بعد.</p>
+{% endif %}
+{% endblock %}

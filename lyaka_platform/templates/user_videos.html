@@ -1,0 +1,39 @@
+<!-- lyaka_platform/templates/user_videos.html -->
+{% extends "base.html" %}
+
+{% block title %}فيديوهاتي - لياقة{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>فيديوهاتي</h2>
+    <a href="{{ url_for("main.upload_video") }}" class="btn btn-primary">رفع فيديو جديد</a>
+</div>
+
+{% if videos %}
+<div class="video-grid">
+    {% for video in videos %}
+    <div class="video-card">
+        <h3><a href="{{ url_for("main.view_user_video", video_id=video.id) }}">{{ video.title }}</a></h3>
+        <p>{{ video.description }}</p>
+        <div class="video-thumbnail">
+            <!-- يمكنك هنا عرض صورة مصغرة للفيديو إذا كانت متاحة -->
+            <video controls preload="metadata">
+                <source src="{{ url_for("static", filename=video.video_path.split("static/")[1]) }}" type="video/mp4">
+                متصفحك لا يدعم تشغيل الفيديو.
+            </video>
+        </div>
+        <p>الإعجابات: {{ video.likes }}</p>
+        <p>تم الرفع في: {{ video.uploaded_at.strftime("%Y-%m-%d %H:%M") }}</p>
+        <div class="card-actions">
+            <a href="{{ url_for("main.view_user_video", video_id=video.id) }}" class="btn btn-secondary">عرض</a>
+            <form action="{{ url_for("main.delete_user_video", video_id=video.id) }}" method="POST" style="display:inline;">
+                <button type="submit" class="btn btn-danger" onclick="return confirm("هل أنت متأكد من حذف هذا الفيديو؟");">حذف</button>
+            </form>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<p>لم تقم برفع أي فيديوهات بعد. <a href="{{ url_for("main.upload_video") }}">ارفع أول فيديو لك الآن!</a></p>
+{% endif %}
+{% endblock %}

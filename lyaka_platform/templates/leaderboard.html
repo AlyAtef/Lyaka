@@ -1,0 +1,35 @@
+<!-- lyaka_platform/templates/leaderboard.html -->
+{% extends "base.html" %}
+
+{% block title %}لوحة المتصدرين - لياقة{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>لوحة المتصدرين</h2>
+</div>
+
+{% if top_users %}
+<div class="leaderboard-table">
+    <table>
+        <thead>
+            <tr>
+                <th>الترتيب</th>
+                <th>اسم المستخدم</th>
+                <th>النقاط</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in top_users %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.total_points }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<p>لا توجد بيانات في لوحة المتصدرين حالياً.</p>
+{% endif %}
+{% endblock %}

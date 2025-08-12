@@ -1,0 +1,35 @@
+<!-- lyaka_platform/templates/auth/login.html -->
+{% extends "layout.html" %}
+{% block content %}
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header"><h3>تسجيل الدخول</h3></div>
+                <div class="card-body">
+                    <form method="POST" action="">
+                        {{ form.hidden_tag() }}
+                        <<div class="mb-3">
+                           {{ form.credential.label(class="form-label") }}
+                           {{ form.credential(class="form-control") }}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form.password.label(class="form-label") }}
+                            {{ form.password(class="form-control") }}
+                        </div>
+                        <div class="mb-3 form-check">
+                            {{ form.remember(class="form-check-input") }}
+                            {{ form.remember.label(class="form-check-label") }}
+                        </div>
+                        <div class="d-grid">
+                            {{ form.submit(class="btn btn-primary") }}
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer text-muted">
+                    لا تملك حساباً؟ <a href="{{ url_for('auth.register') }}">أنشئ حساباً جديداً</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

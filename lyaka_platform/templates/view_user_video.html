@@ -1,0 +1,35 @@
+<!-- lyaka_platform/templates/view_user_video.html -->
+{% extends "base.html" %}
+
+{% block title %}{{ video.title }} - لياقة{% endblock %}
+
+{% block content %}
+<div class="video-detail-container">
+    <h2>{{ video.title }}</h2>
+    <p><strong>الوصف:</strong> {{ video.description }}</p>
+    <div class="video-player">
+        <video controls width="100%">
+            <source src="{{ url_for("static", filename=video.video_path.split("static/")[1]) }}" type="video/mp4">
+            متصفحك لا يدعم تشغيل الفيديو.
+        </video>
+    </div>
+    <p>تم الرفع بواسطة: {{ video.user.username }}</p>
+    <p>تم الرفع في: {{ video.uploaded_at.strftime("%Y-%m-%d %H:%M") }}</p>
+    <p>الإعجابات: {{ video.likes }}</p>
+
+    {% if current_user.is_authenticated %}
+    <div class="video-actions">
+        <form action="{{ url_for("main.like_video", video_id=video.id) }}" method="POST" style="display:inline;">
+            <button type="submit" class="btn btn-secondary">{% if liked %}إلغاء الإعجاب{% else %}إعجاب{% endif %}</button>
+        </form>
+        {% if current_user.id == video.user_id %}
+        <form action="{{ url_for("main.delete_user_video", video_id=video.id) }}" method="POST" style="display:inline;">
+            <button type="submit" class="btn btn-danger" onclick="return confirm("هل أنت متأكد من حذف هذا الفيديو؟");">حذف الفيديو</button>
+        </form>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    <a href="{{ url_for("main.user_videos") }}" class="btn btn-secondary">العودة إلى فيديوهاتي</a>
+</div>
+{% endblock %}

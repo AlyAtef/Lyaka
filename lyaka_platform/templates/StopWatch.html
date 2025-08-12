@@ -1,0 +1,71 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container text-center mt-5">
+    <div class="p-5 mb-4 bg-light rounded-3 shadow-sm">
+        <h1 class="display-1" id="display">00:00:00</h1>
+        <div class="mt-4">
+            <button id="startStopBtn" class="btn btn-primary btn-lg mx-2">بدء</button>
+            <button id="resetBtn" class="btn btn-secondary btn-lg mx-2">إعادة ضبط</button>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block scripts %}
+<script>
+    let timer;
+    let isRunning = false;
+    let seconds = 0, minutes = 0, hours = 0;
+
+    const display = document.getElementById('display');
+    const startStopBtn = document.getElementById('startStopBtn');
+    const resetBtn = document.getElementById('resetBtn');
+
+    function updateDisplay() {
+        let h = hours < 10 ? "0" + hours : hours;
+        let m = minutes < 10 ? "0" + minutes : minutes;
+        let s = seconds < 10 ? "0" + seconds : seconds;
+        display.textContent = `${h}:${m}:${s}`;
+    }
+
+    function startStop() {
+        if (isRunning) {
+            clearInterval(timer);
+            startStopBtn.textContent = "استئناف";
+            startStopBtn.classList.remove('btn-warning');
+            startStopBtn.classList.add('btn-primary');
+            isRunning = false;
+        } else {
+            timer = setInterval(() => {
+                seconds++;
+                if (seconds == 60) {
+                    seconds = 0;
+                    minutes++;
+                    if (minutes == 60) {
+                        minutes = 0;
+                        hours++;
+                    }
+                }
+                updateDisplay();
+            }, 1000);
+            startStopBtn.textContent = "إيقاف مؤقت";
+            startStopBtn.classList.remove('btn-primary');
+            startStopBtn.classList.add('btn-warning');
+            isRunning = true;
+        }
+    }
+
+    function reset() {
+        clearInterval(timer);
+        seconds = 0;
+        minutes = 0;
+        hours = 0;
+        updateDisplay();
+        startStopBtn.textContent = "بدء";
+        isRunning = false;
+    }
+
+    startStopBtn.addEventListener('click', startStop);
+    resetBtn.addEventListener('click', reset);
+</script>
+{% endblock scripts %}

@@ -1,0 +1,26 @@
+<!-- lyaka_platform/templates/add_channel_video.html -->
+{% extends "base.html" %}
+
+{% block title %}إضافة فيديو للقناة - لياقة{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h2>إضافة فيديو للقناة: {{ channel.name }}</h2>
+    <form method="POST" action="{{ url_for("main.add_channel_video", channel_id=channel.id) }}" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="title">عنوان الفيديو:</label>
+            <input type="text" id="title" name="title" required>
+        </div>
+        <div class="form-group">
+            <label for="description">الوصف:</label>
+            <textarea id="description" name="description" rows="5"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="video_file">ملف الفيديو:</label>
+            <input type="file" id="video_file" name="video_file" accept="video/*" required>
+        </div>
+        <button type="submit" class="btn btn-primary">إضافة الفيديو</button>
+        <a href="{{ url_for("main.view_channel", channel_id=channel.id) }}" class="btn btn-secondary">إلغاء</a>
+    </form>
+</div>
+{% endblock %}

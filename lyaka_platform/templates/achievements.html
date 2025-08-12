@@ -1,0 +1,34 @@
+<!-- lyaka_platform/templates/achievements.html -->
+{% extends "base.html" %}
+
+{% block title %}إنجازاتي - لياقة{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>إنجازاتي</h2>
+</div>
+
+{% if all_achievements %}
+<div class="achievement-grid">
+    {% for achievement in all_achievements %}
+    <div class="achievement-card {% if achievement.id in achieved_ids %}achieved{% endif %}">
+        {% if achievement.badge_icon %}
+        <img src="{{ url_for("static", filename=achievement.badge_icon) }}" alt="{{ achievement.name }} Badge">
+        {% else %}
+        <i class="fas fa-award"></i>
+        {% endif %}
+        <h3>{{ achievement.name }}</h3>
+        <p>{{ achievement.description }}</p>
+        <p>النقاط: {{ achievement.points }}</p>
+        {% if achievement.id in achieved_ids %}
+        <span class="achieved-status">تم الإنجاز!</span>
+        {% else %}
+        <span class="achieved-status not-achieved">لم يتم الإنجاز بعد</span>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<p>لا توجد إنجازات متاحة حالياً.</p>
+{% endif %}
+{% endblock %}

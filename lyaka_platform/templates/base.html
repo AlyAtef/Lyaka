@@ -1,0 +1,66 @@
+<!-- lyaka_platform/templates/base.html -->
+<!DOCTYPE html>
+<html lang="ar" dir="rtl"> <!-- <-- الافتراضي للعربية، سيتم تغييره لاحق اً لدعم اللغات
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %} لياقة - منصة الرياضيين الشاملة {% endblock %}</title>
+<link rel="stylesheet" href="{{ url_for('static',
+filename='css/style.css') }}">
+<!-- Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fontawesome/
+6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+<nav>
+<div class="container">
+<a href="{{ url_for('main.index') }}" class="logo"> لياقة </a>
+<ul>
+{% if current_user.is_authenticated %}
+<li><a href="{{ url_for('main.profile') }}"> ملفي
+الشخصي </a></li>
+<li><a href="{{ url_for('main.exercises')
+التمارين<"{{ </a></li>
+<li><a href="{{ url_for('main.workout_plans')
+خطط التدريب<"{{ </a></li>
+<li><a href="{{ url_for('main.user_videos')
+فيديوهاتي<"{{ </a></li>
+<li><a href="{{ url_for('main.achievements')
+إنجازاتي<"{{ </a></li>
+<li><a href="{{ url_for('main.leaderboard') }}"> لوحة
+المتصدرين </a></li>
+<li><a href="{{ url_for('main.channels')
+القنوات<"{{ </a></li>
+<li><a href="{{ url_for('auth.logout') }}"> تسجيل
+الخروج </a></li>
+{% else %}
+<li><a href="{{ url_for('auth.login') }}"> تسجيل
+الدخول </a></li>
+<li><a href="{{ url_for('auth.register')
+التسجيل<"{{ </a></li>
+{% endif %}
+</ul>
+</div>
+</nav>
+</header>
+<main class="container">
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+<div class="flash-messages">
+{% for category, message in messages %}
+<div class="alert alert-{{ category }}">{{ message }}
+</div>
+{% endfor %}
+</div>
+{% endif %}
+{% endwith %}
+{% block content %}
+<!-- Content will be inserted here by child templates -->
+{% endblock %}
+</main>
+<footer>
+<div class="container">
+<p>&copy; لياقة. جميع الحقوق محفوظة 2025 .</p>
+</div>
+</footer>

@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="dashboard-header animate__animated animate__fadeIn">
+    <h1 class="display-4 animate__animated animate__fadeInDown">مرحباً بعودتك، {{ current_user.username }}!</h1>
+    <p class="lead animate__animated animate__fadeInUp">"القوة لا تأتي من القدرة الجسدية، بل تأتي من الإرادة التي لا تقهر."</p>
+</div>
+
+<div class="row text-center">
+    <!-- Card 1: Active Workout -->
+    <div class="col-md-4 mb-4 animate__animated animate__fadeInLeft">
+        <div class="card h-100">
+            <div class="card-body">
+                <i class="fas fa-dumbbell fa-3x text-primary mb-3"></i>
+                <h5 class="card-title">تمرين اليوم</h5>
+                <p class="card-text">جاهز لبدء تمرينك؟ دعنا نبدأ ونحقق بعض التقدم.</p>
+                <a href="{{ url_for('main.active_workout') }}" class="btn btn-primary">ابدأ التمرين</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card 2: Events -->
+    <div class="col-md-4 mb-4 animate__animated animate__fadeInUp">
+        <div class="card h-100">
+            <div class="card-body">
+                <i class="fas fa-calendar-check fa-3x text-success mb-3"></i>
+                <h5 class="card-title">الأحداث والتحديات</h5>
+                <p class="card-text">اكتشف التحديات القادمة وانضم إلى مجتمعنا الرياضي.</p>
+                <a href="{{ url_for('main.events') }}" class="btn btn-success">عرض الأحداث</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card 3: Health Tip -->
+    <div class="col-md-4 mb-4 animate__animated animate__fadeInRight">
+        <div class="card h-100">
+            <div class="card-body">
+                <i class="fas fa-lightbulb fa-3x text-info mb-3"></i>
+                <h5 class="card-title">نصيحة اليوم</h5>
+                <p class="card-text">نصائح يومية لمساعدتك على البقاء بصحة جيدة ونشاط.</p>
+                <a href="{{ url_for('main.health_tip') }}" class="btn btn-info">اقرأ النصيحة</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

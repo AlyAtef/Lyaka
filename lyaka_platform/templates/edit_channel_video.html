@@ -1,0 +1,22 @@
+<!-- lyaka_platform/templates/edit_channel_video.html -->
+{% extends "base.html" %}
+
+{% block title %}تعديل فيديو القناة - لياقة{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h2>تعديل فيديو القناة: {{ video.title }}</h2>
+    <form method="POST" action="{{ url_for("main.edit_channel_video", video_id=video.id) }}">
+        <div class="form-group">
+            <label for="title">عنوان الفيديو:</label>
+            <input type="text" id="title" name="title" value="{{ video.title }}" required>
+        </div>
+        <div class="form-group">
+            <label for="description">الوصف:</label>
+            <textarea id="description" name="description" rows="5">{{ video.description }}</textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">حفظ التغييرات</button>
+        <a href="{{ url_for("main.view_channel", channel_id=video.channel_id) }}" class="btn btn-secondary">إلغاء</a>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,39 @@
+<!-- lyaka_platform/templates/channels.html -->
+{% extends "base.html" %}
+
+{% block title %}القنوات - لياقة{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>القنوات</h2>
+    {% if current_user.is_authenticated %}
+    <a href="{{ url_for("main.add_channel") }}" class="btn btn-primary">إضافة قناة جديدة</a>
+    {% endif %}
+</div>
+
+{% if channels %}
+<div class="channel-grid">
+    {% for channel in channels %}
+    <div class="channel-card">
+        <h3><a href="{{ url_for("main.view_channel", channel_id=channel.id) }}">{{ channel.name }}</a></h3>
+        <p>{{ channel.description }}</p>
+        <p>المدرب: {{ channel.trainer.username }}</p>
+        {% if channel.is_live %}
+        <span class="live-indicator"><i class="fas fa-circle"></i> بث مباشر الآن!</span>
+        {% endif %}
+        <div class="card-actions">
+            <a href="{{ url_for("main.view_channel", channel_id=channel.id) }}" class="btn btn-secondary">عرض القناة</a>
+            {% if current_user.is_authenticated and current_user.id == channel.trainer_id %}
+            <a href="{{ url_for("main.edit_channel", channel_id=channel.id) }}" class="btn btn-secondary">تعديل</a>
+            <form action="{{ url_for("main.delete_channel", channel_id=channel.id) }}" method="POST" style="display:inline;">
+                <button type="submit" class="btn btn-danger" onclick="return confirm("هل أنت متأكد من حذف هذه القناة؟");">حذف</button>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<p>لا توجد قنوات متاحة حالياً.</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container-fluid">
+    <h1 class="mt-4 mb-4">مكتبة التمارين</h1>
+    <div class="row">
+        {% for exercise in exercises %}
+        <div class="col-md-4 col-lg-3 mb-4">
+            <div class="card h-100 shadow-sm">
+                <!-- سنضيف صور حقيقية هنا لاحقاً -->
+                <img src="https://via.placeholder.com/300x200.png?text={{ exercise.name }}" class="card-img-top" alt="{{ exercise.name }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ exercise.name }}</h5>
+                    <p class="card-text text-muted">{{ exercise.body_part }}</p>
+                    <a href="#" class="btn btn-primary">عرض التفاصيل</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}
